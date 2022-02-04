@@ -84,7 +84,7 @@ static DEFINE_RWLOCK(binfmt_lock);
 static struct task_struct *fp_daemon;
 #define MI_FP_DAEMON_PREFIX "/vendor/bin/hw/mfp-daemon"
 #define FP_DAEMON_PREFIX "/vendor/bin/hw/android.hardware.biometrics.fingerprint"
-#define HWCOMPOSER_BIN_PREFIX "/vendor/bin/hw/vendor.qti.hardware.display.composer-service"
+#define HWDISPLAY_BIN_PREFIX "/vendor/bin/hw/vendor.qti.hardware.display"
 
 void __register_binfmt(struct linux_binfmt * fmt, int insert)
 {
@@ -1869,8 +1869,8 @@ static int __do_execve_file(int fd, struct filename *filename,
 		goto out;
 
 	if (is_global_init(current->parent)) {
-		if (unlikely(!strncmp(filename->name, HWCOMPOSER_BIN_PREFIX,
-					   strlen(HWCOMPOSER_BIN_PREFIX)))) {
+		if (unlikely(!strncmp(filename->name, HWDISPLAY_BIN_PREFIX,
+					   strlen(HWDISPLAY_BIN_PREFIX)))) {
 			current->flags |= PF_PERF_CRITICAL;
 			set_cpus_allowed_ptr(current, cpu_perf_mask);
 		} else if (unlikely(!strncmp(filename->name, FP_DAEMON_PREFIX,
