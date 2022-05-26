@@ -198,6 +198,7 @@ static struct file *alloc_file(const struct path *path, int flags,
 	file->f_inode = path->dentry->d_inode;
 	file->f_mapping = path->dentry->d_inode->i_mapping;
 	file->f_wb_err = filemap_sample_wb_err(file->f_mapping);
+	file->f_sb_err = file_sample_sb_err(file);
 	if ((file->f_mode & FMODE_READ) &&
 	     likely(fop->read || fop->read_iter))
 		file->f_mode |= FMODE_CAN_READ;
@@ -375,7 +376,6 @@ void __fput_sync(struct file *file)
 }
 
 EXPORT_SYMBOL(fput);
-EXPORT_SYMBOL(__fput_sync);
 
 void __init files_init(void)
 {
