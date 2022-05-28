@@ -212,9 +212,9 @@ static int proc_show_hba_open(struct inode *inode, struct file *file)
 	return single_open(file, proc_show_hba_show, inode->i_private);
 }
 
-static const struct file_operations proc_show_hba_fops = {
-	.open		= proc_show_hba_open,
-	.read		= seq_read,
+static const struct proc_ops proc_show_hba_fops = {
+	.proc_open		= proc_show_hba_open,
+	.proc_read		= seq_read,
 };
 #endif
 
@@ -252,10 +252,10 @@ static int ufs_debug_clk_open(struct inode *inode, struct file *file)
 	return single_open(file, ufs_debug_clk_show, inode->i_private);
 }
 
-static const struct file_operations ufs_debug_clk_fops = {
-	.open = ufs_debug_clk_open,
-	.read = seq_read,
-	.write = ufs_debug_clk_write,
+static const struct proc_ops ufs_debug_clk_fops = {
+	.proc_open  = ufs_debug_clk_open,
+	.proc_read  = seq_read,
+	.proc_write = ufs_debug_clk_write,
 };
 
 static void create_ufs_debug_clk(struct ufs_hba *hba)
